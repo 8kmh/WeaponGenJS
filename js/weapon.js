@@ -2,22 +2,26 @@ import { stats, randomizeArray } from "./utils.js";
 import { weaponType } from "./data.js";
 
 export class Weapon {
-  damage = stats();
-  finalDrop = weaponType[randomizeArray(weaponType)];
-  imgSrc = this.matchImg();
-  numberQuality = Math.floor(Math.random() * (1400 - 1) + 1);
-  quality = this.checkQuality();
+  constructor() {
+    this.damage = stats();
+    this.finalDrop = weaponType[randomizeArray(weaponType)];
+    this.imgSrc = this.matchImg();
+    this.numberQuality = Math.floor(Math.random() * (1400 - 1) + 1);
+    this.quality = this.checkQuality();
+  }
 
   matchImg() {
-    if (this.finalDrop === "Sword") {
-      return "./public/assets/Sword.png";
-    } else if (this.finalDrop === "Axe") {
-      return "./public/assets/Axe.png";
-    } else if (this.finalDrop === "Slingshot") {
-      return "./public/assets/Slingshot.png";
-    } else if (this.finalDrop === "Staff") {
-      return "./public/assets/Staff.png";
-    } else {
+    switch (this.finalDrop) {
+      case "Sword":
+        return "./public/assets/Sword.png";
+      case "Axe":
+        return "./public/assets/Axe.png";
+      case "Slingshot":
+        return "./public/assets/Slingshot.png";
+      case "Staff":
+        return "./public/assets/Staff.png";
+      default:
+        return ""; // Retourne une chaîne vide par défaut
     }
   }
 
@@ -30,7 +34,7 @@ export class Weapon {
       return "Rare";
     } else if (this.numberQuality >= 1200 && this.numberQuality <= 1399) {
       return "Epic";
-    } else if (this.numberQuality == 1400) {
+    } else {
       return "Légendaire";
     }
   }

@@ -7,28 +7,28 @@ export const randomizeArray = (array) => {
 };
 
 export const displayItem = (item) => {
-  // Affichage d'une arme
+  // Récupération des éléments HTML qui vont être modifiés
+  const pElement = document.getElementById("p");
+  const imgElement = document.getElementById("img");
+
+  let text = "";
+
+  // Construction du texte à afficher en fonction du type d'objet
   if (item.damage) {
-    document.getElementById(
-      "p"
-    ).innerHTML = `${item.finalDrop} ${item.quality}<br>
-                        Damage: ${item.damage}`;
-    document.getElementById("img").setAttribute("src", item.imgSrc);
-  } else {
-    // Affichage d'une armure
-    if (item.armor) {
-      document.getElementById(
-        "p"
-      ).innerHTML = ` ${item.finalDrop} ${item.quality}<br>
-                        armor ${item.armor}<br>
-                        Fire Resistance ${item.fireRes}<br>
-                        Cold Resistance ${item.coldRes}<br>
-                        Lightning Resistance ${item.lightningRes}<br>
-                        Poison Resistance ${item.poisonRes}
-        `;
-      document.getElementById("img").setAttribute("src", item.imgSrc);
-    }
+    text = `${item.finalDrop} ${item.quality}<br>Damage: ${item.damage}`;
+  } else if (item.armor) {
+    text = `${item.finalDrop} ${item.quality}<br>
+            armor ${item.armor}<br>
+            Fire Resistance ${item.fireRes}<br>
+            Cold Resistance ${item.coldRes}<br>
+            Lightning Resistance ${item.lightningRes}<br>
+            Poison Resistance ${item.poisonRes}`;
   }
-  //Stockage de l'objet générer dans sessionStorage
-  sessionStorage.setItem("itemgenerated", JSON.stringify(item));
+
+  // Mise à jour du contenu HTML des éléments
+  pElement.innerHTML = text;
+  imgElement.setAttribute("src", item.imgSrc);
+
+  // Stockage de l'objet généré dans sessionStorage
+  localStorage.setItem("itemgenerated", JSON.stringify(item));
 };

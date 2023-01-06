@@ -2,24 +2,28 @@ import { stats, randomizeArray } from "./utils.js";
 import { armorType } from "./data.js";
 
 export class Armor {
-  armor = stats();
-  fireRes = stats();
-  coldRes = stats();
-  lightningRes = stats();
-  poisonRes = stats();
-  finalDrop = armorType[randomizeArray(armorType)];
-  imgSrc = this.matchImg();
-  numberQuality = Math.floor(Math.random() * (1400 - 1) + 1);
-  quality = this.checkQuality();
+  constructor() {
+    this.armor = stats();
+    this.fireRes = stats();
+    this.coldRes = stats();
+    this.lightningRes = stats();
+    this.poisonRes = stats();
+    this.finalDrop = armorType[randomizeArray(armorType)];
+    this.imgSrc = this.matchImg();
+    this.numberQuality = Math.floor(Math.random() * (1400 - 1) + 1);
+    this.quality = this.checkQuality();
+  }
 
   matchImg() {
-    if (this.finalDrop === "Armor") {
-      return "./public/assets/Armor.png";
-    } else if (this.finalDrop === "Gloves") {
-      return "./public/assets/Gloves.png";
-    } else if (this.finalDrop === "Boots") {
-      return "./public/assets/Boots.png";
-    } else {
+    switch (this.finalDrop) {
+      case "Armor":
+        return "./public/assets/Armor.png";
+      case "Gloves":
+        return "./public/assets/Gloves.png";
+      case "Boots":
+        return "./public/assets/Boots.png";
+      default:
+        return "";
     }
   }
 
